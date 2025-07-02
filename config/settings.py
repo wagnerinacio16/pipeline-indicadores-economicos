@@ -3,8 +3,11 @@ import os
 import pathlib
 
 
-DATA_ROOT = str(pathlib.Path('data').resolve())
+# Diretório raiz do projeto (um nível acima da pasta 'config')
+PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]
 
+# Pasta de dados (camadas do Lake)
+DATA_ROOT = PROJECT_ROOT / "data"
 
 
 PATHS = {
