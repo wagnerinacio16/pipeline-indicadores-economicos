@@ -20,28 +20,28 @@ PARAMETROS = {
             "AGREGADO": "7060",
             "VARIAVEL": "63",
         },
+
         "DESEMPREGO": {
             "AGREGADO": "4099",
             "VARIAVEL": "4099",
         },
     },
+
     "BACEN": {
         "SELIC_META": "432",
         "IBC_BR": "24363",
         "INADIMPLENCIA_PF": "20710",
+        #COTACAO CAMBIO
+        "USD_BRL": "1",       #Dolar Americano
+        "EUR_BRL": "21619",   #Euro
+        "GBP_BRL": "21623",   #Libra Esterlina
+        "JPY_BRL": "21620",   #Iene Japones
+        "ARS_BRL": "21622",   #Peso Argentino
+        "CHF_BRL": "21621",   #Franco Suico
+        "CNY_BRL": "21627"    #Yuan Chines
     }
 }
 
-COTACAO_CAMBIO = {
-    
-    "USD_BRL": 1,       #Dolar Americano
-    "EUR_BRL": 21619,   #Euro
-    "GBP_BRL": 21623,   #Libra Esterlina
-    "JPY_BRL": 21620,   #Iene Japones
-    "ARS_BRL": 21622,   #Peso Argentino
-    "CHF_BRL": 21621,   #Franco Suico
-    "CNY_BRL": 21627    #Yuan Chines
-}
 
 INDICADORES = {
     "IPCA": {
@@ -57,7 +57,7 @@ INDICADORES = {
         "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['SELIC_META']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
     },
     "IBC_BR": {
-         "NOME": "Índice de Atividade Econômica do Banco Central (IBC-Br)",
+        "NOME": "Índice de Atividade Econômica do Banco Central (IBC-Br)",
         "CATEGORIA": "atividade_economica",
         "FONTE": API["BACEN"]["FONTE"],
         "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['IBC_BR']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
@@ -66,13 +66,50 @@ INDICADORES = {
         "NOME": "Taxa de Desemprego",
         "CATEGORIA": "MERCADO_TRABALHO",
         "FONTE": API['IBGE']['FONTE'],
-        "URL": str(f"{API['IBGE']}/{PARAMETROS['IBGE']['DESEMPREGO']['AGREGADO']}/periodos/all/variaveis/{PARAMETROS['IBGE']['DESEMPREGO']['VARIAVEL']}?localidades=N1[all]")
+        "URL": str(f"{API['IBGE']['URL']}/{PARAMETROS['IBGE']['DESEMPREGO']['AGREGADO']}/periodos/all/variaveis/{PARAMETROS['IBGE']['DESEMPREGO']['VARIAVEL']}?localidades=N1[all]")
     },
     "INADIMPLENCIA_PF": {
         "NOME": "Inadimplência Pessoa Física",
         "CATEGORIA": "CREDITO_CONSUMO",
         "FONTE": "BACEN",
         "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['INADIMPLENCIA_PF']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    #Cotação Moedas
+    "ARS_BRL":{
+        "NOME": "Cotação Peso Argentino",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['ARS_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "USD_BRL":{
+        "NOME": "Cotação Dolór Americano",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['USD_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "EUR_BRL":{
+        "NOME": "Cotação Euro",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['EUR_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "GBP_BRL":{
+        "NOME": "Cotação Libra Esterlina",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['GBP_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "JPY_BRL":{
+        "NOME": "Cotação Iêne Japones",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['JPY_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "CHF_BRL":{
+        "NOME": "Cotação Franco Suíço",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['CHF_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
+    },
+    "CNY_BRL":{
+        "NOME": "Cotação Yan Chinês",
+        "FONTE": API['BACEN']['FONTE'],
+        "URL": str(f"{API['BACEN']['URL']}{PARAMETROS['BACEN']['CNY_BRL']}/dados?formato=json&dataInicial={DATA_INICIAL}&dataFinal={DATA_FINAL}")
     }
+    
 }
 
