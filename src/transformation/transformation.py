@@ -1,7 +1,13 @@
 from config.utils import *
 
 
-#Ingestão dos dados de cotação na camadda silver
-for nome_moeda, parametros in list(INDICADORES.items())[-7:]:
-   dados_cotacao = ler_dados_cotacao(moeda=nome_moeda)
-   salvar_dados_cotacao(dados=dados_cotacao,moeda=nome_moeda)
+#Ingestão dos dados na camada silver
+for nome_indicador, parametros in INDICADORES.items():
+    fonte = parametros.get('FONTE')
+
+    dados = ler_dados_indicadores(nome_indicador=nome_indicador, nome_fonte=fonte)
+
+    if dados is not None:
+        salvar_dados_indicadores(dados=dados, nome_indicador=nome_indicador)
+    else:
+        logger.warning(f"Dados do indicador '{nome_indicador}' não foram carregados.")
