@@ -84,28 +84,22 @@ def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATH
 
         logger.info(f"Lendo arquivo: {path_arquivo}")
 
-        granularidade = INDICADORES[nome_indicador]['GRANULARIDADE']
-
         if nome_fonte.upper() == 'BACEN':
             df = pd.read_json(path_arquivo)
+            df['data'] = pd.to_datetime(df['data'], format='%d/%m/%Y')
 
         elif nome_fonte.upper() == 'IBGE':
             with open(path_arquivo, "r", encoding="utf-8") as f:
                 dados = json.load(f)
                 serie = dados[0]['resultados'][0]['series'][0]['serie']
                 df = pd.DataFrame(serie.items(), columns=['data', 'valor'])
-
+                df['data'] = pd.to_datetime(df['data'].astype(str), format="%Y%m").dt.strftime('%d/%m/%Y')
         else:
             logger.warning(f"Fonte desconhecida: {nome_fonte}")
             return None
 
         df.rename(columns={'valor': nome_indicador}, inplace=True)
-
-        if granularidade == "mensal":
-            df['data'] = pd.to_datetime(df['data'].astype(str), format="%Y%m")
-        elif granularidade == "diaria":
-            df['data'] = pd.to_datetime(df['data'], errors='coerce')
-
+       
         return df
 
     except FileNotFoundError:
