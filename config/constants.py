@@ -1,9 +1,12 @@
+# pyrefly: ignore  # import-error
 from config.settings import * 
 
+# pyrefly: ignore  # unknown-name
 DATA_FINAL = dt.datetime.now().strftime('%d/%m/%Y')
+# pyrefly: ignore  # unknown-name
 DATA_INICIAL = dt.datetime.now().replace(year=dt.datetime.now().year-10).strftime('%d/%m/%Y')
 
-API = {
+API: dict[str, dict[str, str]] = {
     "IBGE": {
         "FONTE":"IBGE",
         "URL":"https://servicodados.ibge.gov.br/api/v3/agregados"},
@@ -14,7 +17,7 @@ API = {
     }
 }
 
-PARAMETROS = {
+PARAMETROS: dict[str, dict[str, dict[str, str]] | dict[str, str]] = {
     "IBGE": {
         "IPCA": {
             "AGREGADO": "7060",
@@ -43,12 +46,13 @@ PARAMETROS = {
 }
 
 
-INDICADORES = {
+INDICADORES: dict[str, dict[str, str]] = {
     "IPCA": {
         "NOME": "Índice Nacional de Preços ao Consumidor Amplo (IPCA)",
         "CATEGORIA": "INFLACAO",
         "FONTE": API["IBGE"]["FONTE"],
         "GRANULARIDADE": "MENSAL",
+        # pyrefly: ignore  # no-matching-overload
         "URL": str(f"{API['IBGE']['URL']}/{PARAMETROS['IBGE']['IPCA']['AGREGADO']}/periodos/all/variaveis/{PARAMETROS['IBGE']['IPCA']['VARIAVEL']}?localidades=N1[all]")
     },
     "SELIC_META": {
@@ -70,6 +74,7 @@ INDICADORES = {
         "CATEGORIA": "MERCADO_TRABALHO",
         "FONTE": API['IBGE']['FONTE'],
         "GRANULARIDADE": "MENSAL",
+        # pyrefly: ignore  # no-matching-overload
         "URL": str(f"{API['IBGE']['URL']}/{PARAMETROS['IBGE']['DESEMPREGO']['AGREGADO']}/periodos/all/variaveis/{PARAMETROS['IBGE']['DESEMPREGO']['VARIAVEL']}?localidades=N1[all]")
     },
     "INADIMPLENCIA_PF": {

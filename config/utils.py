@@ -1,3 +1,4 @@
+# pyrefly: ignore  # import-error
 from config.constants import *
 
 
@@ -37,7 +38,7 @@ def obter_dados_api(indicador:dict):
         raise erro
 
 
-def salvar_dados_api(dados: dict, nome_indicador: str):
+def salvar_dados_api(dados: dict, nome_indicador: str) -> None:
     """
     Salva os dados brutos da API na camada bronze com nome padronizado.
 
@@ -49,7 +50,9 @@ def salvar_dados_api(dados: dict, nome_indicador: str):
         None
     """
     try:
-        nome_arquivo = f"{nome_indicador.lower()}_{dt.datetime.today().strftime('%Y%m%d')}.json"
+        # pyrefly: ignore  # unknown-name
+        nome_arquivo: str = f"{nome_indicador.lower()}_{dt.datetime.today().strftime('%Y%m%d')}.json"
+        # pyrefly: ignore  # unknown-name
         caminho_arquivo = os.path.join(PATHS["BRONZE_LAYER"],nome_arquivo)
         #print(caminho_arquivo)
 
@@ -63,7 +66,8 @@ def salvar_dados_api(dados: dict, nome_indicador: str):
         raise e
     
 
-def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATHS['BRONZE_LAYER'], data: str = DATA_FINAL):
+# pyrefly: ignore  # unknown-name
+def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATHS['BRONZE_LAYER'], data: str = DATA_FINAL) -> pd.DataFrame | None:
     """
     Lê um arquivo JSON da camada bronze e retorna um DataFrame padronizado.
 
@@ -78,20 +82,22 @@ def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATH
     """
     try:
         nome_indicador = nome_indicador.lower()
-        data_str = pd.to_datetime(data, format="%d/%m/%Y").strftime("%Y%m%d")
-        nome_arquivo = f"{nome_indicador}_{data_str}.json"
+        data_str: str = pd.to_datetime(data, format="%d/%m/%Y").strftime("%Y%m%d")
+        nome_arquivo: str = f"{nome_indicador}_{data_str}.json"
+        # pyrefly: ignore  # unknown-name
         path_arquivo = os.path.join(path, nome_arquivo)
 
         logger.info(f"Lendo arquivo: {path_arquivo}")
 
         if nome_fonte.upper() == 'BACEN':
-            df = pd.read_json(path_arquivo)
+            df: DataFrame = pd.read_json(path_arquivo)
             df['data'] = pd.to_datetime(df['data'], format='%d/%m/%Y')
 
         elif nome_fonte.upper() == 'IBGE':
             with open(path_arquivo, "r", encoding="utf-8") as f:
-                dados = json.load(f)
+                dados: Any = json.load(f)
                 serie = dados[0]['resultados'][0]['series'][0]['serie']
+                # pyrefly: ignore  # bad-argument-type
                 df = pd.DataFrame(serie.items(), columns=['data', 'valor'])
                 df['data'] = pd.to_datetime(df['data'].astype(str), format="%Y%m").dt.strftime('%d/%m/%Y')
         else:
@@ -110,7 +116,7 @@ def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATH
     return None
 
 
-def salvar_dados_indicadores(dados: pd.DataFrame, nome_indicador: str):
+def salvar_dados_indicadores(dados: pd.DataFrame, nome_indicador: str) -> None:
     """
     Salva os dados transformados do indicador na camada Silver em formato Parquet.
 
@@ -122,7 +128,8 @@ def salvar_dados_indicadores(dados: pd.DataFrame, nome_indicador: str):
         None
     """
     try:
-        nome_arquivo = f"{nome_indicador.lower()}.parquet"
+        nome_arquivo: str = f"{nome_indicador.lower()}.parquet"
+        # pyrefly: ignore  # unknown-name
         caminho_arquivo = os.path.join(PATHS["SILVER_LAYER"], nome_arquivo)
 
         dados.to_parquet(caminho_arquivo)
