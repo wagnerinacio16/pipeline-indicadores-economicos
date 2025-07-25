@@ -1,8 +1,10 @@
-from typing import LiteralString
-from pathlib import Path
-import datetime as dt
+"""
+Configurações globais do pipeline, incluindo diretórios, caminhos de dados e bibliotecas compartilhadas.
+"""
+
 import os
 import pathlib
+from pathlib import Path
 
 # Diretório raiz do projeto (um nível acima da pasta 'config')
 PROJECT_ROOT: Path = pathlib.Path(__file__).resolve().parents[1]

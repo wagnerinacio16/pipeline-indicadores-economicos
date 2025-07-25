@@ -1,9 +1,10 @@
-# pyrefly: ignore  # import-error
+"""
+Constantes globais, parâmetros de APIs e metadados dos indicadores econômicos.
+"""
+import datetime as dt
 from config.settings import * 
 
-# pyrefly: ignore  # unknown-name
 DATA_FINAL = dt.datetime.now().strftime('%d/%m/%Y')
-# pyrefly: ignore  # unknown-name
 DATA_INICIAL = dt.datetime.now().replace(year=dt.datetime.now().year-10).strftime('%d/%m/%Y')
 
 API: dict[str, dict[str, str]] = {

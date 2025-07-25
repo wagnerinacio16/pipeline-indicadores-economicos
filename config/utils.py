@@ -1,15 +1,17 @@
-# pyrefly: ignore  # import-error
-from config.constants import *
+"""
+Funções utilitárias utilizadas no projeto para ingestão, leitura e salvamento de dados.
+"""
 
+
+
+from config.schemas import *
 
 #libs
 import json
 import requests
 import pandas as pd
+import pandera.pandas as pa
 from loguru import logger
-
-
-#Definindo funções do projeto
 
 
 def obter_dados_api(indicador:dict):
@@ -27,15 +29,13 @@ def obter_dados_api(indicador:dict):
     """
     try:
         logger.info(f"Realizando requisição da API: {indicador['NOME']}")
-        resposta = requests.get(indicador['URL'])
+        resposta = requests.get(indicador['URL'],timeout=60)
         resposta.raise_for_status()  
-        logger.success(f"Requisição para {indicador['NOME']} realizada com sucesso - Status: {resposta.status_code}")
+        logger.success(f"Requisição para {indicador['NOME']} - Status: {resposta.status_code}")
         return resposta.json()
-        
-
-    except requests.exceptions.RequestException as erro:
-        logger.error(f"Falha ao acessar a URL: {indicador['URL']}")
-        raise erro
+    except requests.exceptions.HTTPError as http_err:
+        logger.error(f"Erro HTTP ao acessar a URL: {indicador['URL']} - {http_err}")
+        raise http_err
 
 
 def salvar_dados_api(dados: dict, nome_indicador: str) -> None:
@@ -68,6 +68,7 @@ def salvar_dados_api(dados: dict, nome_indicador: str) -> None:
 
 # pyrefly: ignore  # unknown-name
 def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATHS['BRONZE_LAYER'], data: str = DATA_FINAL) -> pd.DataFrame | None:
+
     """
     Lê um arquivo JSON da camada bronze e retorna um DataFrame padronizado.
 
@@ -90,7 +91,7 @@ def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATH
         logger.info(f"Lendo arquivo: {path_arquivo}")
 
         if nome_fonte.upper() == 'BACEN':
-            df: DataFrame = pd.read_json(path_arquivo)
+            df: pd.DataFrame = pd.read_json(path_arquivo)
             df['data'] = pd.to_datetime(df['data'], format='%d/%m/%Y')
 
         elif nome_fonte.upper() == 'IBGE':
