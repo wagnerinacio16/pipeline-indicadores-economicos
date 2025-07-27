@@ -45,6 +45,7 @@ economic-indicators-pipeline/
 │
 ├── requirements.txt                        # Lista de bibliotecas necessárias para executar o projeto
 ├── main.py                                 # Ponto de entrada do pipeline (executa ingestão, transformação e agregcação)
+├── main.py                                 # Ponto de entrada do pipeline (executa ingestão, transformação, agregação)
 └── README.md                               # Documentação do projeto com instruções de uso e visão geral
 
 ```
