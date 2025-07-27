@@ -19,22 +19,33 @@ Este projeto tem como objetivo construir um pipeline de dados baseado na arquite
 ```bash
 economic-indicators-pipeline/
 │
-├── notebooks/              # Notebooks exploratórios e scripts de testes
-├── src/                    # Código fonte do pipeline
-│   ├── ingestion/          # Ingestão de dados (APIs públicas)
-│   ├── transformation/     # Limpeza, padronização e enriquecimento (camada Silver)
-│   └── gold/               # Modelagem e estrutura final de consumo (camada Gold)
+├── config/                                 # Configurações reutilizáveis do projeto
+│   ├── constants.py                        # Constantes globais (ex: nomes de indicadores, granularidades)
+│   ├── schemas.py                          # Schemas do Pandera para validação dos dados
+│   ├── settings.py                         # Caminhos, datas, variáveis de ambiente
+│   └── utils.py                            # Funções utilitárias (ex: salvar JSON, formatar datas, logging)
 │
-├── config/                 # Configurações gerais (paths, constantes, schemas)
-├── data/                   # Dados divididos por camadas
-│   ├── bronze/
-│   ├── silver/
-│   └── gold/
+├── data/                                   # Diretório de armazenamento dos dados em diferentes camadas
+│   ├── bronze/                             # Dados brutos extraídos (sem transformação)
+│   ├── silver/                             # Dados tratados (tipos, datas, colunas renomeadas)
+│   ├── gold/                               # Dados prontos para análise e consumo
+│   └── metrics/                            # Metainformações e validações
+│       └── schemas/                        # Schemas YAML exportados (catálogo de dados)
 │
-├── metrics/                # Schemas de validação e metadados com Pandera
-├── requirements.txt        # Bibliotecas necessárias
-├── .gitignore              # Arquivos a serem ignorados pelo Git
-└── README.md               # Documentação do projeto
+├── notebooks/                              # Notebooks de exploração, testes e protótipos
+│   └── exploration.ipynb                   # Notebook de exploração de dados e testes locais
+│
+├── src/                                    # Código-fonte do pipeline
+│   ├── ingestion/                          # Módulo responsável pela ingestão de dados externos
+│   │   └── bronze_ingestion.py             # Script para coletar e salvar dados na camada bronze
+│   ├── transformation/                     # Módulo de transformação dos dados para a camada silver
+│   │   └── silver_transformation.py        # Tratamento, renomeações e normalização dos dados
+│   └── aggregation/                        # Módulo de agregações e geração da camada gold
+│       └── gold_aggregation.py             # Criação de indicadores finais e tabelas analíticas
+│
+├── requirements.txt                        # Lista de bibliotecas necessárias para executar o projeto
+├── main.py                                 # Ponto de entrada do pipeline (executa ingestão, transformação, etc.)
+└── README.md                               # Documentação do projeto com instruções de uso e visão geral
 
 ```
 
