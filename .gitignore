@@ -21,9 +21,9 @@ venv/
 
 # Data
 notebooks/data/
-*.parquet
-*.json
-*.csv
+#*.parquet
+#*.json
+#*.csv
 
 # Logs
 logs/

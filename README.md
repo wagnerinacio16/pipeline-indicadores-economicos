@@ -44,6 +44,7 @@ economic-indicators-pipeline/
 │       └── gold_aggregation.py             # Criação de indicadores finais e tabelas analíticas
 │
 ├── requirements.txt                        # Lista de bibliotecas necessárias para executar o projeto
+├── main.py                                 # Ponto de entrada do pipeline (executa ingestão, transformação e agregcação)
 ├── main.py                                 # Ponto de entrada do pipeline (executa ingestão, transformação, agregação)
 └── README.md                               # Documentação do projeto com instruções de uso e visão geral
 
