@@ -1,0 +1,50 @@
+schema_type: dataframe
+version: 0.25.0
+columns:
+  data:
+    title: null
+    description: "Data da observa\xE7\xE3o. Formato DD-MM-YYYY."
+    dtype: datetime64[ns]
+    nullable: false
+    checks:
+    - min_value: '2015-07-27 00:00:00'
+      max_value: '2025-07-27 00:00:00'
+      include_min: true
+      include_max: true
+      options:
+        check_name: in_range
+        raise_warning: false
+        ignore_na: true
+    unique: true
+    coerce: false
+    required: true
+    regex: false
+  ipca:
+    title: null
+    description: Valor do IPCA.
+    dtype: float64
+    nullable: false
+    checks:
+    - value: 0
+      options:
+        check_name: greater_than
+        raise_warning: false
+        ignore_na: true
+    unique: false
+    coerce: false
+    required: true
+    regex: false
+checks: null
+index: null
+dtype: null
+coerce: false
+strict: false
+name: IPCA
+ordered: false
+unique: null
+report_duplicates: all
+unique_column_names: false
+add_missing_columns: false
+title: null
+description: "\xCDndice de Pre\xE7os ao Consumidor Amplo (IBGE). S\xE9rie hist\xF3\
+  rica mensal."

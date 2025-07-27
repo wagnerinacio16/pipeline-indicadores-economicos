@@ -1,0 +1,52 @@
+schema_type: dataframe
+version: 0.25.0
+columns:
+  data:
+    title: null
+    description: "Data da cota\xE7\xE3o da taxa de c\xE2mbio USD/BRL. Formato DD-MM-YYYY."
+    dtype: datetime64[ns]
+    nullable: false
+    checks:
+    - min_value: '2015-07-27 00:00:00'
+      max_value: '2025-07-27 00:00:00'
+      include_min: true
+      include_max: true
+      options:
+        check_name: in_range
+        raise_warning: false
+        ignore_na: true
+    unique: true
+    coerce: false
+    required: true
+    regex: false
+  usd_brl:
+    title: null
+    description: "Valor da taxa de c\xE2mbio do D\xF3lar Americano (USD) para o Real\
+      \ (BRL)."
+    dtype: float64
+    nullable: false
+    checks:
+    - value: 0
+      options:
+        check_name: greater_than
+        raise_warning: false
+        ignore_na: true
+    unique: false
+    coerce: false
+    required: true
+    regex: false
+checks: null
+index: null
+dtype: null
+coerce: false
+strict: false
+name: USD_BRL
+ordered: false
+unique: null
+report_duplicates: all
+unique_column_names: false
+add_missing_columns: false
+title: null
+description: "Tabela contendo a s\xE9rie hist\xF3rica da taxa de c\xE2mbio di\xE1\
+  ria entre o D\xF3lar Americano (USD) e o Real Brasileiro (BRL), disponibilizada\
+  \ pelo Banco Central do Brasil (BACEN)."
