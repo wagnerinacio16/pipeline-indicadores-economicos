@@ -15,9 +15,12 @@ PATHS: dict[str, str] = {
     "BRONZE_LAYER": os.path.join(PROJECT_ROOT, "data/bronze"),
     "SILVER_LAYER": os.path.join(PROJECT_ROOT, "data/silver"),
     "GOLD_LAYER": os.path.join(PROJECT_ROOT, "data/gold"),
-    #Camadas de metricas e logs
+    #Camadas de metricas, schemas e logs
     "LOGS": os.path.join(PROJECT_ROOT, "data/logs"),
-    "METRICS": os.path.join(PROJECT_ROOT, "data/metrics")
+    "METRICS": os.path.join(PROJECT_ROOT, "data/metrics"),
+    "SCHEMAS": os.path.join(PROJECT_ROOT,"data/metrics/schemas")
 }
 
 
+for path in PATHS.values():
+    os.makedirs(path, exist_ok=True)

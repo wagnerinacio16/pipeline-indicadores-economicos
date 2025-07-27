@@ -8,7 +8,10 @@ from config.constants import *
 data_inicial = dt.datetime.strptime(DATA_INICIAL, "%d/%m/%Y")
 data_final = dt.datetime.strptime(DATA_FINAL, "%d/%m/%Y")
 
-schema_ars_brl = pa.DataFrameSchema(
+
+SCHEMAS: dict[str, pa.DataFrameSchema] = {}
+
+SCHEMAS['ars_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="ARS_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Peso Argentino (ARS) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -17,7 +20,7 @@ schema_ars_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio ARS/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio ARS/BRL. Formato DD-MM-YYYY.",
         ),
         "ars_brl": pa.Column(
             pa.Float,
@@ -28,7 +31,7 @@ schema_ars_brl = pa.DataFrameSchema(
     },
 )
 
-schema_ipca = pa.DataFrameSchema(
+SCHEMAS['ipca']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="IPCA",
     description="Índice de Preços ao Consumidor Amplo (IBGE). Série histórica mensal.",
     columns={
@@ -37,7 +40,7 @@ schema_ipca = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da observação. Formato YYYY-MM-DD.",
+            description="Data da observação. Formato DD-MM-YYYY.",
         ),
         "ipca": pa.Column(
             pa.Float,
@@ -48,7 +51,7 @@ schema_ipca = pa.DataFrameSchema(
     },
 )
 
-schema_selic_meta = pa.DataFrameSchema(
+SCHEMAS['selic_meta']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="SELIC_META",
     description="Taxa Selic Meta (BACEN). Série histórica diária.",
     columns={
@@ -57,7 +60,7 @@ schema_selic_meta = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da observação. Formato YYYY-MM-DD.",
+            description="Data da observação. Formato DD-MM-YYYY.",
         ),
         "selic_meta": pa.Column(
             pa.Float,
@@ -68,7 +71,7 @@ schema_selic_meta = pa.DataFrameSchema(
     },
 )
 
-schema_eur_brl = pa.DataFrameSchema(
+SCHEMAS['eur_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="EUR_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Euro (EUR) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -77,7 +80,7 @@ schema_eur_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio EUR/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio EUR/BRL. Formato DD-MM-YYYY.",
         ),
         "eur_brl": pa.Column(
             pa.Float,
@@ -88,7 +91,7 @@ schema_eur_brl = pa.DataFrameSchema(
     },
 )
 
-schema_usd_brl = pa.DataFrameSchema(
+SCHEMAS['usd_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="USD_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Dólar Americano (USD) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -97,7 +100,7 @@ schema_usd_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio USD/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio USD/BRL. Formato DD-MM-YYYY.",
         ),
         "usd_brl": pa.Column(
             pa.Float,
@@ -108,7 +111,7 @@ schema_usd_brl = pa.DataFrameSchema(
     },
 )
 
-schema_ibc_br = pa.DataFrameSchema(
+SCHEMAS['ibc_br']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="IBC_BR",
     description="Índice de Atividade Econômica do Banco Central (IBC-BR). Série histórica mensal.",
     columns={
@@ -117,7 +120,7 @@ schema_ibc_br = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da observação. Formato YYYY-MM-DD.",
+            description="Data da observação. Formato DD-MM-YYYY.",
         ),
         "ibc_br": pa.Column(
             pa.Float,
@@ -128,7 +131,7 @@ schema_ibc_br = pa.DataFrameSchema(
     },
 )
 
-schema_inadimplencia_pf = pa.DataFrameSchema(
+SCHEMAS['inadimplencia_pf']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="INADIMPLENCIA_PF",
     description="Índice de inadimplência de pessoas físicas. Série histórica mensal.",
     columns={
@@ -137,7 +140,7 @@ schema_inadimplencia_pf = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da observação. Formato YYYY-MM-DD.",
+            description="Data da observação. Formato DD-MM-YYYY.",
         ),
         "inadimplencia_pf": pa.Column(
             pa.Float,
@@ -148,7 +151,7 @@ schema_inadimplencia_pf = pa.DataFrameSchema(
     },
 )
 
-schema_chf_brl = pa.DataFrameSchema(
+SCHEMAS['chf_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="CHF_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Franco Suíço (CHF) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -157,7 +160,7 @@ schema_chf_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio CHF/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio CHF/BRL. Formato DD-MM-YYYY.",
         ),
         "chf_brl": pa.Column(
             pa.Float,
@@ -168,7 +171,7 @@ schema_chf_brl = pa.DataFrameSchema(
     },
 )
 
-schema_cny_brl = pa.DataFrameSchema(
+SCHEMAS['cny_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="CNY_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Yuan Chinês (CNY) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -177,7 +180,7 @@ schema_cny_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio CNY/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio CNY/BRL. Formato DD-MM-YYYY.",
         ),
         "cny_brl": pa.Column(
             pa.Float,
@@ -188,7 +191,7 @@ schema_cny_brl = pa.DataFrameSchema(
     },
 )
 
-schema_gbp_brl = pa.DataFrameSchema(
+SCHEMAS['gbp_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="GBP_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre a Libra Esterlina (GBP) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -197,7 +200,7 @@ schema_gbp_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio GBP/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio GBP/BRL. Formato DD-MM-YYYY.",
         ),
         "gbp_brl": pa.Column(
             pa.Float,
@@ -208,7 +211,7 @@ schema_gbp_brl = pa.DataFrameSchema(
     },
 )
 
-schema_jpy_brl = pa.DataFrameSchema(
+SCHEMAS['jpy_brl']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="JPY_BRL",
     description="Tabela contendo a série histórica da taxa de câmbio diária entre o Iene Japonês (JPY) e o Real Brasileiro (BRL), disponibilizada pelo Banco Central do Brasil (BACEN).",
     columns={
@@ -217,7 +220,7 @@ schema_jpy_brl = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da cotação da taxa de câmbio JPY/BRL. Formato YYYY-MM-DD.",
+            description="Data da cotação da taxa de câmbio JPY/BRL. Formato DD-MM-YYYY.",
         ),
         "jpy_brl": pa.Column(
             pa.Float,
@@ -228,7 +231,7 @@ schema_jpy_brl = pa.DataFrameSchema(
     },
 )
 
-schema_desemprego = pa.DataFrameSchema(
+SCHEMAS['desemprego']: pa.DataFrameSchema = pa.DataFrameSchema(
     name="DESEMPREGO",
     description="Taxa de desemprego. Série histórica mensal.",
     columns={
@@ -237,7 +240,7 @@ schema_desemprego = pa.DataFrameSchema(
             nullable=False,
             unique=True,
             checks=[pa.Check.in_range(data_inicial, data_final)],
-            description="Data da observação. Formato YYYY-MM-DD.",
+            description="Data da observação. Formato DD-MM-YYYY.",
         ),
         "desemprego": pa.Column(
             pa.Float,

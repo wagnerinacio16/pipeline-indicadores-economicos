@@ -118,6 +118,7 @@ def ler_dados_indicadores(nome_indicador: str, nome_fonte: str, path: str = PATH
 
 
 def salvar_dados_indicadores(dados: pd.DataFrame, nome_indicador: str) -> None:
+    
     """
     Salva os dados transformados do indicador na camada Silver em formato Parquet.
 
@@ -139,3 +140,22 @@ def salvar_dados_indicadores(dados: pd.DataFrame, nome_indicador: str) -> None:
 
     except Exception as e:
         logger.error(f"Erro ao salvar os dados do indicador '{nome_indicador}' na camada Silver: {str(e)}", exc_info=True)
+
+
+def exportar_schemas_para_yaml() -> None:
+    
+    """
+    Exporta todos os schemas definidos no dicionário SCHEMAS
+    para arquivos YAML na pasta definida em PATHS['SCHEMAS'].
+    
+    Returns:
+        None
+    """
+    for nome, schema in SCHEMAS.items():
+        path_schema = os.path.joiin(PATHS['SCHEMAS'],f"{nome}.yaml")
+        try:
+            with open(path_schema, "w", encoding="utf-8") as f:
+                f.write(schema.to_yaml())
+            logger.success(f"Schema '{nome}' exportado para: {path_schema}")
+        except Exception as e:
+            logger.error(f"Erro ao exportar schema '{nome}': {e}")
