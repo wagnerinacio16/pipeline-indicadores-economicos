@@ -3,7 +3,7 @@ version: 0.25.0
 columns:
   data:
     title: null
-    description: "Data da cota\xE7\xE3o da taxa de c\xE2mbio CNY/BRL. Formato DD-MM-YYYY."
+    description: "Data da cota\xE7\xE3o da taxa de c\xE2mbio CHF/BRL. Formato DD-MM-YYYY."
     dtype: datetime64[ns]
     nullable: false
     checks:
@@ -19,9 +19,10 @@ columns:
     coerce: false
     required: true
     regex: false
-  cny_brl:
+  chf_brl:
     title: null
-    description: "Valor da taxa de c\xE2mbio do Yuan Chin\xEAs (CNY) para o Real (BRL)."
+    description: "Valor da taxa de c\xE2mbio do Franco Su\xED\xE7o (CHF) para o Real\
+      \ (BRL)."
     dtype: float64
     nullable: false
     checks:
@@ -39,7 +40,7 @@ index: null
 dtype: null
 coerce: false
 strict: false
-name: CNY_BRL
+name: CHF_BRL
 ordered: false
 unique: null
 report_duplicates: all
@@ -47,5 +48,5 @@ unique_column_names: false
 add_missing_columns: false
 title: null
 description: "Tabela contendo a s\xE9rie hist\xF3rica da taxa de c\xE2mbio di\xE1\
-  ria entre o Yuan Chin\xEAs (CNY) e o Real Brasileiro (BRL), disponibilizada pelo\
-  \ Banco Central do Brasil (BACEN)."
+  ria entre o Franco Su\xED\xE7o (CHF) e o Real Brasileiro (BRL), disponibilizada\
+  \ pelo Banco Central do Brasil (BACEN)."
