@@ -48,6 +48,7 @@ economic-indicators-pipeline/
 └── README.md                               # Documentação do projeto com instruções de uso e visão geral
 
 ```
+---
 
 ## Tecnologias
 - Python 3.12
@@ -58,10 +59,14 @@ economic-indicators-pipeline/
 - Loguru
 - Jupyter Notebook
 
+---
+
 ## Camadas do Projeto
 - **Bronze**: Dados brutos da API salvos localmente.
 - **Silver**: Dados tratados, padronizados, com colunas renomeadas e datas ajustadas.
 - **Gold**: Dados agregados, prontos para análise.
+
+---
 
 ## Validação de Dados
 A camada `metrics/` contém os esquemas implementado com Panderas:
@@ -69,6 +74,8 @@ A camada `metrics/` contém os esquemas implementado com Panderas:
 - Descrições das colunas
 - Metadata da tabela
 - Serialização com `.yaml`
+
+---
 
 ## Como Excecutar
 
@@ -83,3 +90,4 @@ pip install -r requirements.txt
 # Execute o pipeline
 python main.py
 ```
+---
